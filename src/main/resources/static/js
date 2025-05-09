@@ -1,0 +1,52 @@
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('/api/products')  // Assuming the backend is running on the same server
+        .then(response => response.json())
+        .then(products => {
+            const productList = document.getElementById('product-list');
+            products.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.classList.add('product');
+                productItem.innerHTML = `
+                    <img src="/assets/${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>Price: ₹${product.price}</p>
+                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+                `;
+                productList.appendChild(productItem);
+            });
+        })
+        .catch(error => console.error('Error fetching products:', error));
+
+    let cart = [];
+    let cartTotal = 0;
+
+    window.addToCart = function (id, name, price) {
+        cart.push({ id, name, price });
+        cartTotal += price;
+        updateCart();
+    };
+
+    function updateCart() {
+        const cartItemsList = document.getElementById('cart-items');
+        cartItemsList.innerHTML = '';
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - ₹${item.price}`;
+            cartItemsList.appendChild(li);
+        });
+        document.getElementById('cart-total').textContent = cartTotal;
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click', function () {
+        alert('Proceeding to checkout...');
+    });
+
+    const cartModal = document.getElementById('cart-modal');
+    document.getElementById('close-cart').addEventListener('click', function () {
+        cartModal.style.display = 'none';
+    });
+
+    document.querySelector('header nav ul li a[href="#"]').addEventListener('click', function () {
+        cartModal.style.display = 'block';
+    });
+});
