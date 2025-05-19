@@ -31,4 +31,4 @@ public class SaleController {
     public void deleteSale(@PathVariable Long id) {
         saleService.deleteSale(id);
     }
-}
+}//error may occure
