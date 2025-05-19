@@ -26,7 +26,7 @@ public class CustomerController {
     public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return customerService.updateCustomer(id, customerDTO);
     }
-
+//Operation on deleting 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
