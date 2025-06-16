@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Customers</h1>
+
+<form action="#" th:action="@{/api/customers}" method="post">
+    <input type="text" name="name" placeholder="Customer Name" required />
+    <input type="text" name="phoneNumber" placeholder="Phone Number" required />
+    <button type="submit">Add Customer</button>
+</form>
+
+<hr>
+
+<h2>Customer List</h2>
+<table>
+    <thead>
+    <tr><th>ID</th><th>Name</th><th>Phone</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.name}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

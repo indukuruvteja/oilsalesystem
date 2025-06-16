@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Sale</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/sale.js}" defer></script>
+</head>
+<body>
+<h1>Record a Sale</h1>
+
+<form th:action="@{/api/sales}" method="post">
+    <label>Customer:</label>
+    <select name="customerId">
+        <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.name}"></option>
+    </select>
+
+    <label>Product:</label>
+    <select name="productId" id="productSelect">
+        <option th:each="p : ${products}" th:value="${p.id}" th:text="${p.name}"
+                th:data-price="${p.pricePerLitre}"></option>
+    </select>
+
+    <label>Quantity (Litres):</label>
+    <input type="number" name="quantityInLitres" id="quantityInput" required />
+
+    <p>Total Price: ₹<span id="totalPrice">0.00</span></p>
+
+    <button type="submit">Submit Sale</button>
+</form>
+</body>
+</html>
